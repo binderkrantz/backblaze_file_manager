@@ -1,3 +1,5 @@
+'''module'''
+
 from datetime import datetime
 from pathlib import Path
 
@@ -43,5 +45,5 @@ def get_file_creation_timestamp(file_path):
         file_created_at = datetime.fromtimestamp(stat_ts)
 
     assert isinstance(file_created_at, datetime), f'Invalid timestamp: {file_created_at}'
-    
+
     return file_created_at
