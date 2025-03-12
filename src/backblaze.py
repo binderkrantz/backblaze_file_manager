@@ -1,3 +1,4 @@
+'''Module to interact with Backblaze B2 API'''
 import ast
 import os
 
@@ -11,15 +12,18 @@ class BBlaze:
 
     @classmethod
     def list_buckets(cls):
+        '''List all buckets in the account'''
         return cls.b2_api.list_buckets()
 
     @classmethod
     def list_files(cls, bucket_name):
+        '''List all files in a bucket'''
         bucket = cls.b2_api.get_bucket_by_name(bucket_name)
         files = bucket.ls(recursive=True)
         return {(file_info.file_name, file_info.size) for file_info, _ in files}
 
     @classmethod
     def upload_file(cls, bucket_name, file_path, new_name):
+        '''Upload a file to a bucket'''
         bucket = cls.b2_api.get_bucket_by_name(bucket_name)
         return bucket.upload_local_file(file_path, new_name, progress_listener=TqdmProgressListener())

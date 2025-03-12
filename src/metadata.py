@@ -26,7 +26,7 @@ def get_file_creation_timestamp(file_path):
     if file_extention in image_formats:
         img = Image.open(file_path)
         exif_data = img.getexif()
-        exif_ts = exif_data.get(306) or exif_data.get(36867) # 306: DateTime, 36867: DateTimeOriginal
+        exif_ts = exif_data.get(306) or exif_data.get(36867) # 306:DateTime, 36867:DateTimeOriginal
         if exif_ts:
             file_created_at = datetime.strptime(exif_ts, '%Y:%m:%d %H:%M:%S')
 
