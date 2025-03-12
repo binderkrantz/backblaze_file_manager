@@ -1,8 +1,10 @@
-from backblaze import BBlaze
-from metadata import get_file_creation_timestamp
+'''parent module'''
+# pylint: disable=import-error
 
 from pathlib import Path
 from pprint import pprint
+from backblaze import BBlaze
+from metadata import get_file_creation_timestamp
 
 
 
@@ -18,6 +20,7 @@ def list_file_paths(dir_path, recursive=False):
     return [str(p) for p in dir_path.glob(pattern)]
 
 def dt_as_path(file_created_at):
+    '''tdb'''
     year = file_created_at.strftime('%Y')
     month = file_created_at.strftime('%m')
     full_str = file_created_at.strftime('%Y%m%dT%H%M%S')
@@ -33,9 +36,10 @@ def increment_filename(file_path:str):
             return str(path.with_stem(f"{base}-{int(counter) + 1}").as_posix())
     return str(path.with_stem(f"{path.stem}-1").as_posix())
 
-########################################################################################################
+####################################################################################################
 
 def main():
+    '''main'''
     dir_path = r"C:/Users/chanb/OneDrive/Skrivebord/New folder/test"
     new_files = [Path(file_path) for file_path in list_file_paths(dir_path, recursive=True)]
     ########################################################
@@ -46,13 +50,15 @@ def main():
     to_upload = []
 
     for file_path in new_files:
-        
+
         ts = get_file_creation_timestamp(str(file_path))
         new_file_name = dt_as_path(ts)
         new_file_size = file_path.stat().st_size
         full_new_file_name = new_file_name + file_path.suffix
-
-        while (full_new_file_name, new_file_size) in online_files: ## TODO: workout the logic here. If name with same size already exists, file should be skipped as its likely a dupe.
+        # pylint: disable=fixme
+        # TODO: workout the logic below.
+        # If name with same size already exists, file should be skipped as its likely a dupe.
+        while (full_new_file_name, new_file_size) in online_files:
             full_new_file_name = increment_filename(full_new_file_name)
 
         online_files.add((full_new_file_name, new_file_size))
