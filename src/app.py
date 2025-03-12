@@ -46,6 +46,7 @@ def main():
     to_upload = []
 
     for file_path in new_files:
+        
         ts = get_file_creation_timestamp(str(file_path))
         new_file_name = dt_as_path(ts)
         new_file_size = file_path.stat().st_size
