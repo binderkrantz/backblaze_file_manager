@@ -1,8 +1,9 @@
 from datetime import datetime
+from pathlib import Path
+
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 from PIL import Image
-from pathlib import Path
 from pillow_heif import register_heif_opener
 register_heif_opener()
 

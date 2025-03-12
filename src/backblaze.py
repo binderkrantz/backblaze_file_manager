@@ -1,6 +1,7 @@
-from b2sdk.v2 import B2Api, TqdmProgressListener
 import ast
 import os
+
+from b2sdk.v2 import B2Api, TqdmProgressListener
 
 class BBlaze:
     b2_api = B2Api()
